@@ -1,0 +1,16 @@
+.app-container {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.choice-container {
+    margin-top: 2rem;
+}
+
+.choice-btn {
+    font-size: 8rem;
+    margin: 1rem;
+}

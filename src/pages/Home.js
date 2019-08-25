@@ -11,9 +11,13 @@ const Home = props => {
     return (
         <div className="app-container">
             <h1>
-                Welcome to the Battle of<br></br> Rock Paper Scissors!
+                You dare battle me at
+                <br />
+                Rock Paper Scissors?
+                <br />
+                You got no chance, kid!
             </h1>
-            <p>Please enter your name</p>
+            <p>What's your name, ya chancer?</p>
             <input type="text" />
             <button onClick={handleClick}>Start</button>
         </div>
