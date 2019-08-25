@@ -1,7 +1,13 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+
 import "./home.css";
 
-const Home = () => {
+const Home = props => {
+    const handleClick = () => {
+        props.history.push("/start");
+    };
+
     return (
         <div className="app-container">
             <h1>
@@ -9,9 +15,8 @@ const Home = () => {
             </h1>
             <p>Please enter your name</p>
             <input type="text" />
-            <button>Start</button>
+            <button onClick={handleClick}>Start</button>
         </div>
     );
 };
-
-export default Home;
+export default withRouter(Home);
