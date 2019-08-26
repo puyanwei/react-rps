@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 
 import "./home.css";
 
@@ -23,4 +22,5 @@ const Home = props => {
         </div>
     );
 };
-export default withRouter(Home);
+
+export default Home;
