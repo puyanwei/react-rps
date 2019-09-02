@@ -35,5 +35,4 @@ const Home = (props) => {
 	);
 };
 
-Home.displayName = 'Home';
 export default Home;
