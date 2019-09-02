@@ -6,10 +6,18 @@ const Home = (props) => {
 	const playerName = useRef();
 
 	const handleClick = () => {
-		if (playerName) {
+		if (!isStringEmpty(playerName.current.value)) {
 			props.history.push({ pathname: '/start', state: { playerName: playerName.current.value } });
 		}
 	};
+
+	const handleKeyPress = (e) => {
+		if (!isStringEmpty(playerName.current.value) && e.which === 13) {
+			props.history.push({ pathname: '/start', state: { playerName: playerName.current.value } });
+		}
+	};
+
+	const isStringEmpty = (string) => string.trim().length === 0;
 
 	return (
 		<div className="app-container">
@@ -21,7 +29,7 @@ const Home = (props) => {
 				You got no chance, kid!
 			</h1>
 			<p>What's your name, ya chancer?</p>
-			<input type="text" ref={playerName} />
+			<input type="text" onKeyPress={(e) => handleKeyPress(e)} ref={playerName} />
 			<button onClick={handleClick}>Start</button>
 		</div>
 	);
