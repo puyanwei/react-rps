@@ -1,8 +1,14 @@
-import React, {useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./start.css";
 
 const Start = (props) => {
     const [choice, setChoice] = useState(null);
+    const [playerName, setPlayerName] = useState('');
+
+    useEffect(() => {
+        setPlayerName(props.location.state.playerName)
+        
+    }, [])
 
     const setEmojiToTextState = emoji => {
         if (emoji === "✊") {
@@ -17,10 +23,15 @@ const Start = (props) => {
         return;
     };
 
+    const handleClick = () => {
+        props.history.push({ pathname: '/result', state: { playerChoice: choice,playerName: playerName  } });
+        
+    };
+
     return (
         <div className="app-container">
             <h2>
-                Ok, <span className="player-name">{props.location.state.playerName}</span> lets see whatcha got!
+                Ok, <span className="player-name">{playerName}</span> lets see whatcha got!
                 <br />
                 <br />
                 choose rock, paper or scissors
@@ -49,7 +60,7 @@ const Start = (props) => {
             {choice !== null ? (
                 <>
                     <h3>You chose {choice}.</h3>
-                    <button>Confirm</button>
+                    <button onClick={() => handleClick()}>Confirm</button>
                 </>
             ) : null}
         </div>
