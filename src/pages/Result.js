@@ -5,15 +5,30 @@ const Result = (props) => {
 	const [outcome, setOutcome] = useState(null);
 
 	useEffect(() => {
-		getResult();
+		getOutcome();
 	}, []);
 
-	const getResult = () => {
-		// code that runs after the setting of the playerName and playerChoice. Will return "Win", "Lose", or "Draw"
-		if (playerChoice === computerChoice) {
+	const getOutcome = () => {
+		const combinations = [
+			'Rock Scissors',
+			'Scissors Paper',
+			'Paper Rock',
+			'Rock Paper',
+			'Paper Scissors',
+			'Scissors Rock'
+		];
+
+		let hashIndexMatcher;
+
+		hashIndexMatcher = combinations.indexOf(`${playerChoice} ${computerChoice}`);
+
+		if (hashIndexMatcher === -1) {
 			setOutcome('DRAW');
+		} else if (hashIndexMatcher > -1 && hashIndexMatcher < 3) {
+			setOutcome('WIN');
+		} else {
+			setOutcome('LOSE');
 		}
-		console.log(playerChoice, computerChoice);
 	};
 
 	return (
