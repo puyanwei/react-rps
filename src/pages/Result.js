@@ -41,7 +41,7 @@ const Result = (props) => {
 
 	return (
 		<div className="app-container">
-			<div className="margin-vert">
+			<div className="outcome">
 				<strong>YOU {outcome}</strong>
 			</div>
 			<br />
