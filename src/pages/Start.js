@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './start.css';
 
 const Start = (props) => {
+	const { playerName } = props.location.state;
 	const [choice, setChoice] = useState(null);
-	const [playerName, setPlayerName] = useState('');
-
-	useEffect(() => {
-		setPlayerName(props.location.state.playerName);
-	}, []);
 
 	const setEmojiToTextState = (emoji) => {
 		if (emoji === '✊') {

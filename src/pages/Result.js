@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import './result.css';
 
 const Result = (props) => {
 	const { playerName, playerChoice, computerChoice } = props.location.state;
-	const [outcome, setOutcome] = useState(null);
+	const [ outcome, setOutcome ] = useState(null);
 
 	useEffect(() => {
 		getOutcome();
@@ -31,13 +32,28 @@ const Result = (props) => {
 		}
 	};
 
+	const handleClick = () => {
+		props.history.push({
+			pathname: '/start',
+			state: { playerName: playerName }
+		});
+	};
+
 	return (
 		<div className="app-container">
-			<strong>YOU {outcome}</strong>
+			<div className="margin-vert">
+				<strong>YOU {outcome}</strong>
+			</div>
 			<br />
-			<strong>{playerName}</strong> chose <strong>{playerChoice}</strong>
+			<div>
+				<strong>{playerName}</strong> chose <strong>{playerChoice}</strong>
+			</div>
 			<br />
-			<strong>Computer</strong> chose <strong>{computerChoice}</strong>
+			<div>
+				<strong>Computer</strong> chose <strong>{computerChoice}</strong>
+			</div>
+			<br />
+			<button onClick={handleClick}>Play again?</button>
 		</div>
 	);
 };
