@@ -1,70 +1,67 @@
-import React, { useState, useEffect } from "react";
-import "./start.css";
+import React, { useState, useEffect } from 'react';
+import './start.css';
 
 const Start = (props) => {
-    const [choice, setChoice] = useState(null);
-    const [playerName, setPlayerName] = useState('');
+	const [choice, setChoice] = useState(null);
+	const [playerName, setPlayerName] = useState('');
 
-    useEffect(() => {
-        setPlayerName(props.location.state.playerName)
-        
-    }, [])
+	useEffect(() => {
+		setPlayerName(props.location.state.playerName);
+	}, []);
 
-    const setEmojiToTextState = emoji => {
-        if (emoji === "✊") {
-            setChoice("Rock");
-        }
-        if (emoji === "✋") {
-            setChoice("Paper");
-        }
-        if (emoji === "✌") {
-            setChoice("Scissors");
-        }
-        return;
-    };
+	const setEmojiToTextState = (emoji) => {
+		if (emoji === '✊') {
+			setChoice('Rock');
+		}
+		if (emoji === '✋') {
+			setChoice('Paper');
+		}
+		if (emoji === '✌') {
+			setChoice('Scissors');
+		}
+		return;
+	};
 
-    const handleClick = () => {
-        props.history.push({ pathname: '/result', state: { playerChoice: choice,playerName: playerName  } });
-        
-    };
+	const generateComputerChoice = () => {
+		const outcomes = ['Rock', 'Paper', 'Scissors'];
+		return outcomes[Math.floor(Math.random() * outcomes.length)];
+	};
 
-    return (
-        <div className="app-container">
-            <h2>
-                Ok, <span className="player-name">{playerName}</span> lets see whatcha got!
-                <br />
-                <br />
-                choose rock, paper or scissors
-            </h2>
-            <div className="choice-container">
-                <button
-                    className="choice-btn"
-                    onClick={() => setEmojiToTextState("✊")}
-                >
-                    ✊
-                </button>
-                <button
-                    className="choice-btn"
-                    onClick={() => setEmojiToTextState("✋")}
-                >
-                    ✋
-                </button>
-                <button
-                    className="choice-btn"
-                    onClick={() => setEmojiToTextState("✌")}
-                >
-                    ✌
-                </button>
-            </div>
+	const handleClick = () => {
+		props.history.push({
+			pathname: '/result',
+			state: { playerChoice: choice, playerName: playerName, computerChoice: generateComputerChoice() }
+		});
+	};
 
-            {choice !== null ? (
-                <>
-                    <h3>You chose {choice}.</h3>
-                    <button onClick={() => handleClick()}>Confirm</button>
-                </>
-            ) : null}
-        </div>
-    );
+	return (
+		<div className="app-container">
+			<h2>
+				Ok, <span className="player-name">{playerName}</span> lets see whatcha got!
+				<br />
+				<br />
+				choose rock, paper or scissors
+			</h2>
+			<div className="choice-container">
+				<button className="choice-btn" onClick={() => setEmojiToTextState('✊')}>
+					✊
+				</button>
+				<button className="choice-btn" onClick={() => setEmojiToTextState('✋')}>
+					✋
+				</button>
+				<button className="choice-btn" onClick={() => setEmojiToTextState('✌')}>
+					✌
+				</button>
+			</div>
+
+			{choice !== null ? (
+				<>
+					<h3>You chose {choice}.</h3>
+					<button onClick={() => handleClick()}>Confirm</button>
+				</>
+			) : null}
+		</div>
+	);
 };
 
 export default Start;
