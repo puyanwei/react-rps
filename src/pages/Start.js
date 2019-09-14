@@ -30,7 +30,7 @@ const Start = props => {
             state: {
                 playerChoice: choice,
                 playerName: playerName,
-                computerChoice: generateComputerChoice()
+                computerChoice: generateComputerChoice(),
             }
         });
     };
