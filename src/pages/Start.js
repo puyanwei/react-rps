@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./start.css";
 
 const Start = props => {
-    const { playerName } = props.location.state;
+    const { playerName, scores} = props.location.state;
 
     const [choice, setChoice] = useState(null);
 
@@ -25,12 +25,18 @@ const Start = props => {
     };
 
     const handleClick = () => {
+        let scoresCopy = scores
+        if(!scoresCopy){
+            scoresCopy ={player: 0, computer: 0}
+        }
+
         props.history.push({
             pathname: "/result",
             state: {
-                playerChoice: choice,
                 playerName: playerName,
+                playerChoice: choice,
                 computerChoice: generateComputerChoice(),
+                scores: scoresCopy
             }
         });
     };

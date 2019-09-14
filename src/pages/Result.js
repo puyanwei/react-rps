@@ -4,15 +4,12 @@ import './result.css';
 const Result = (props) => {
 	const { playerName, playerChoice, computerChoice, scores } = props.location.state;
 
-	const [ currentScores, setCurrentScores ] = useState({ player: 0, computer: 0 });
+	const [ currentScores, setCurrentScores ] = useState({ player: scores.player, computer: scores.computer });
 	const [ result, setResult ] = useState(null);
 
-	useEffect(
-		() => {
-			getResult(playerChoice, computerChoice);
-		},
-		[ playerChoice, computerChoice ]
-	);
+	useEffect(() => {
+		getResult(playerChoice, computerChoice);
+	}, []);
 
 	const getResult = (firstChoice, secondChoice) => {
 		const combinations = [
@@ -43,14 +40,15 @@ const Result = (props) => {
 		props.history.push({
 			pathname: '/start',
 			state: {
-				currentScores
+				scores: currentScores,
+				playerName: playerName
 			}
 		});
 	};
 
 	return (
 		<div className="app-container">
-			<div className="outcome">
+			<div className="large-font">
 				<strong>YOU {result}</strong>
 			</div>
 			<br />
@@ -63,7 +61,7 @@ const Result = (props) => {
 			</div>
 			<div>
 				<br />
-				{`${currentScores.player}-${currentScores.computer}`}
+				<strong className="large-font">{`${currentScores.player}-${currentScores.computer}`}</strong>
 			</div>
 			<br />
 			<button onClick={handleClick}>Play again?</button>
