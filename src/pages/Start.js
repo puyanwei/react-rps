@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { NameContext } from "../contexts/NameContext";
+
 import "./start.css";
 
 const Start = props => {
-    const { playerName, scores} = props.location.state;
+    // const { scores } = props.location.state;
+
+    const { playerName, changeName } = useContext(NameContext);
 
     const [choice, setChoice] = useState(null);
 
@@ -25,9 +29,10 @@ const Start = props => {
     };
 
     const handleClick = () => {
-        let scoresCopy = scores
-        if(!scoresCopy){
-            scoresCopy ={player: 0, computer: 0}
+        // let scoresCopy = scores;
+        let scoresCopy = {};
+        if (!scoresCopy) {
+            scoresCopy = { player: 0, computer: 0 };
         }
 
         props.history.push({
