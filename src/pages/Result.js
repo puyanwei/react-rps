@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { NameContext } from '../contexts/NameContext';
+import { ScoreContext } from '../contexts/ScoreContext';
+import { ChoiceContext } from '../contexts/ChoiceContext';
+
 import './result.css';
 
 const Result = (props) => {
-	const { playerName, playerChoice, computerChoice, scores } = props.location.state;
-
-	const [ currentScores, setCurrentScores ] = useState({ player: scores.player, computer: scores.computer });
 	const [ result, setResult ] = useState(null);
 
+	const { currentScores, setCurrentScores } = useContext(ScoreContext);
+	const { playerName } = useContext(NameContext);
+	const { choice, setChoice } = useContext(ChoiceContext);
+
 	useEffect(() => {
-		getResult(playerChoice, computerChoice);
+		getResult(choice.playerChoice, choice.computerChoice);
 	}, []);
 
 	const getResult = (firstChoice, secondChoice) => {
@@ -53,11 +58,11 @@ const Result = (props) => {
 			</div>
 			<br />
 			<div>
-				<strong>{playerName}</strong> chose <strong>{playerChoice}</strong>
+				<strong>{playerName}</strong> chose <strong>{choice.playerChoice}</strong>
 			</div>
 			<br />
 			<div>
-				<strong>Computer</strong> chose <strong>{computerChoice}</strong>
+				<strong>Computer</strong> chose <strong>{choice.computerChoice}</strong>
 			</div>
 			<div>
 				<br />

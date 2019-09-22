@@ -1,24 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, {  useContext } from "react";
 import { NameContext } from "../contexts/NameContext";
+import { ChoiceContext } from "../contexts/ChoiceContext";
 
 import "./start.css";
 
 const Start = props => {
-    // const { scores } = props.location.state;
 
-    const { playerName, changeName } = useContext(NameContext);
-
-    const [choice, setChoice] = useState(null);
+    const { playerName } = useContext(NameContext);
+    const { choice, setChoice } = useContext(ChoiceContext);
 
     const setEmojiToTextState = emoji => {
         if (emoji === "✊") {
-            setChoice("Rock");
+            setChoice({ player: "Rock", computer: null });
         }
         if (emoji === "✋") {
-            setChoice("Paper");
+            setChoice({ player: "Paper", computer: null });
         }
         if (emoji === "✌") {
-            setChoice("Scissors");
+            setChoice({ player: "Scissors", computer: null });
         }
         return;
     };
@@ -29,20 +28,9 @@ const Start = props => {
     };
 
     const handleClick = () => {
-        // let scoresCopy = scores;
-        let scoresCopy = {};
-        if (!scoresCopy) {
-            scoresCopy = { player: 0, computer: 0 };
-        }
-
+        setChoice({player: choice.player, computer: generateComputerChoice()})
         props.history.push({
             pathname: "/result",
-            state: {
-                playerName: playerName,
-                playerChoice: choice,
-                computerChoice: generateComputerChoice(),
-                scores: scoresCopy
-            }
         });
     };
 
@@ -76,9 +64,9 @@ const Start = props => {
                 </button>
             </div>
 
-            {choice !== null ? (
+            {choice.player !== null ? (
                 <>
-                    <h3>You chose {choice}.</h3>
+                    <h3>You chose {choice.player}.</h3>
                     <button onClick={() => handleClick()}>Confirm</button>
                 </>
             ) : null}
