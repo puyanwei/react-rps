@@ -10,10 +10,10 @@ const Result = (props) => {
 
 	const { currentScores, setCurrentScores } = useContext(ScoreContext);
 	const { playerName } = useContext(NameContext);
-	const { choice, setChoice } = useContext(ChoiceContext);
+	const { choice } = useContext(ChoiceContext);
 
 	useEffect(() => {
-		getResult(choice.playerChoice, choice.computerChoice);
+		getResult(choice.player, choice.computer);
 	}, []);
 
 	const getResult = (firstChoice, secondChoice) => {
@@ -43,11 +43,7 @@ const Result = (props) => {
 
 	const handleClick = () => {
 		props.history.push({
-			pathname: '/start',
-			state: {
-				scores: currentScores,
-				playerName: playerName
-			}
+			pathname: '/start'
 		});
 	};
 
@@ -58,11 +54,11 @@ const Result = (props) => {
 			</div>
 			<br />
 			<div>
-				<strong>{playerName}</strong> chose <strong>{choice.playerChoice}</strong>
+				<strong>{playerName}</strong> chose <strong>{choice.player}</strong>
 			</div>
 			<br />
 			<div>
-				<strong>Computer</strong> chose <strong>{choice.computerChoice}</strong>
+				<strong>Computer</strong> chose <strong>{choice.computer}</strong>
 			</div>
 			<div>
 				<br />
