@@ -1,17 +1,12 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useReducer } from 'react';
+import { RPSReducer } from '../reducers/RPSReducer';
 
 export const RPSContext = createContext();
 
 const RPSContextProvider = (props) => {
-	const [ choice, setChoice ] = useState({ player: null, computer: null });
-	const [ playerName, setPlayerName ] = useState('');
-	const [ currentScores, setCurrentScores ] = useState({ player: 0, computer: 0 });
+	const [ state, dispatch ] = useReducer(RPSReducer, { playerName: '' });
 
-	return (
-		<RPSContext.Provider value={{ choice, setChoice, playerName, setPlayerName, currentScores, setCurrentScores }}>
-			{props.children}
-		</RPSContext.Provider>
-	);
+	return <RPSContext.Provider value={{ state, dispatch }}>{props.children}</RPSContext.Provider>;
 };
 
 export default RPSContextProvider;

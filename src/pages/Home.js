@@ -3,25 +3,26 @@ import { RPSContext } from '../contexts/RPSContext';
 import './home.css';
 
 const Home = (props) => {
-	const playerName = useRef();
-
-	const { setPlayerName } = useContext(RPSContext);
+	const { state, dispatch } = useContext(RPSContext);
+	const playerNameEntry = useRef();
 
 	const handleClick = () => {
-		if (!isStringEmpty(playerName.current.value)) {
-			setPlayerName(playerName.current.value);
+		if (!isStringEmpty(playerNameEntry.current.value)) {
+			dispatch({ type: 'SET_NAME', state: playerNameEntry.current.value });
 			props.history.push({
 				pathname: '/start'
 			});
+			console.log(dispatch);
 		}
 	};
 
 	const handleKeyPress = (e) => {
-		if (!isStringEmpty(playerName.current.value) && e.which === 13) {
-			setPlayerName(playerName.current.value);
-			props.history.push({
-				pathname: '/start'
-			});
+		if (!isStringEmpty(playerNameEntry.current.value) && e.which === 13) {
+			console.log({ props });
+			// dispatch({ type: 'SET_NAME', state: playerNameEntry.current.value });
+			// props.history.push({
+			// 	pathname: '/start'
+			// });
 		}
 	};
 
@@ -37,7 +38,7 @@ const Home = (props) => {
 				You got no chance, kid!
 			</h1>
 			<p>What's your name, ya chancer?</p>
-			<input type="text" onKeyPress={(e) => handleKeyPress(e)} ref={playerName} />
+			<input type="text" onKeyPress={(e) => handleKeyPress(e)} ref={playerNameEntry} />
 			<button onClick={handleClick}>Start</button>
 		</div>
 	);
