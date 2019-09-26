@@ -4,22 +4,17 @@ import { HashRouter, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Start from './pages/Start';
 import Result from './pages/Result';
-import NameContextProvider from './contexts/NameContext';
-import ScoreContextProvider from './contexts/ScoreContext';
-import ChoiceContextProvider from './contexts/ChoiceContext';
+
+import RPSContextProvider from './contexts/RPSContext';
 
 const App = () => {
 	return (
 		<HashRouter>
-			<NameContextProvider>
+			<RPSContextProvider>
 				<Route exact path="/" component={Home} />
-				<ChoiceContextProvider>
-					<ScoreContextProvider>
-						<Route path="/start" component={Start} />
-						<Route path="/result" component={Result} />
-					</ScoreContextProvider>
-				</ChoiceContextProvider>
-			</NameContextProvider>
+				<Route path="/start" component={Start} />
+				<Route path="/result" component={Result} />
+			</RPSContextProvider>
 		</HashRouter>
 	);
 };

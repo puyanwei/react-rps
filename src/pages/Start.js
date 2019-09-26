@@ -1,13 +1,11 @@
 import React, {  useContext } from "react";
-import { NameContext } from "../contexts/NameContext";
-import { ChoiceContext } from "../contexts/ChoiceContext";
+import { RPSContext } from "../contexts/RPSContext";
 
 import "./start.css";
 
 const Start = props => {
 
-    const { playerName } = useContext(NameContext);
-    const { choice, setChoice } = useContext(ChoiceContext);
+    const { choice, setChoice, playerName } = useContext(RPSContext);
 
     const setEmojiToTextState = emoji => {
         if (emoji === "✊") {

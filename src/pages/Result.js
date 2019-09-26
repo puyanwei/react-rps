@@ -1,16 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { NameContext } from '../contexts/NameContext';
-import { ScoreContext } from '../contexts/ScoreContext';
-import { ChoiceContext } from '../contexts/ChoiceContext';
+import { RPSContext } from '../contexts/RPSContext';
 
 import './result.css';
 
 const Result = (props) => {
 	const [ result, setResult ] = useState(null);
 
-	const { currentScores, setCurrentScores } = useContext(ScoreContext);
-	const { playerName } = useContext(NameContext);
-	const { choice } = useContext(ChoiceContext);
+	const { playerName, currentScores, setCurrentScores, choice } = useContext(RPSContext);
 
 	useEffect(() => {
 		getResult(choice.player, choice.computer);
