@@ -5,32 +5,33 @@ import "./start.css";
 
 const Start = props => {
 
-    const { state } = useContext(RPSContext);
+    const { state, dispatch } = useContext(RPSContext);
 
-    // const setEmojiToTextState = emoji => {
-    //     if (emoji === "✊") {
-    //         setChoice({ player: "Rock", computer: null });
-    //     }
-    //     if (emoji === "✋") {
-    //         setChoice({ player: "Paper", computer: null });
-    //     }
-    //     if (emoji === "✌") {
-    //         setChoice({ player: "Scissors", computer: null });
-    //     }
-    //     return;
-    // };
+    const setEmojiToTextState = emoji => {
+        if (emoji === "✊") {
+            dispatch({ type: 'SET_PLAYER_CHOICE', payload: "Rock" });
+        }
+        if (emoji === "✋") {
+            dispatch({ type: 'SET_PLAYER_CHOICE', payload: "Paper" });
+        }
+        if (emoji === "✌") {
+            dispatch({ type: 'SET_PLAYER_CHOICE', payload: "Scissors" });
+        }
+        return;
+    };
 
-    // const generateComputerChoice = () => {
-    //     const outcomes = ["Rock", "Paper", "Scissors"];
-    //     return outcomes[Math.floor(Math.random() * outcomes.length)];
-    // };
+    const generateComputerChoice = () => {
+        const outcomes = ["Rock", "Paper", "Scissors"];
+        return outcomes[Math.floor(Math.random() * outcomes.length)];
+    };
 
-    // const handleClick = () => {
-    //     setChoice({ player: choice.player, computer: generateComputerChoice() })
-    //     props.history.push({
-    //         pathname: "/result",
-    //     });
-    // };
+    const handleClick = () => {
+        dispatch({ type: 'SET_COMPUTER_CHOICE', payload: generateComputerChoice() });
+
+        // props.history.push({
+        //     pathname: "/result",
+        // });
+    };
 
     return (
         <div className="app-container">
@@ -41,7 +42,7 @@ const Start = props => {
                 <br />
                 choose rock, paper or scissors
             </h2>
-            {/* <div className="choice-container">
+            <div className="choice-container">
                 <button
                     className="choice-btn"
                     onClick={() => setEmojiToTextState("✊")}
@@ -59,15 +60,15 @@ const Start = props => {
                     onClick={() => setEmojiToTextState("✌")}
                 >
                     ✌
-                </button> */}
-            {/* </div> */}
+                </button>
+            </div>
 
-            {/* {choice.player !== null ? (
+            {state.choice.player !== null ? (
                 <>
-                    <h3>You chose {choice.player}.</h3>
+                    <h3>You chose {state.choice.player}.</h3>
                     <button onClick={() => handleClick()}>Confirm</button>
                 </>
-            ) : null} */}
+            ) : null}
         </div>
     );
 };

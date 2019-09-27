@@ -3,10 +3,15 @@ import { RPSReducer } from '../reducers/RPSReducer';
 
 export const RPSContext = createContext();
 
-const RPSContextProvider = (props) => {
-	const [state, dispatch] = useReducer(RPSReducer, { playerName: '' });
+const initialState = {
+	playerName: '',
+	choice: { player: null, computer: null }
+}
 
-	return <RPSContext.Provider value={{ state, dispatch }}>{props.children}</RPSContext.Provider>;
+const RPSContextProvider = ({ children }) => {
+	const [state, dispatch] = useReducer(RPSReducer, initialState);
+
+	return <RPSContext.Provider value={{ state, dispatch }}>{children}</RPSContext.Provider>;
 };
 
 export default RPSContextProvider;
