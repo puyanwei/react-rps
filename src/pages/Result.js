@@ -5,7 +5,16 @@ import './result.css';
 
 const Result = (props) => {
 	const [result, setResult] = useState(null);
-	const { state: { playerName, choice: { playerChoice, computerChoice }, scores: { playerScore, computerScore } }, dispatch } = useContext(RPSContext);
+
+	const {
+		state:
+		{
+			playerName,
+			choice: { playerChoice, computerChoice },
+			scores: { playerScore, computerScore }
+		},
+		dispatch
+	} = useContext(RPSContext);
 
 	useEffect(() => {
 
@@ -35,7 +44,7 @@ const Result = (props) => {
 		};
 
 		getResult(playerChoice, computerChoice);
-	}, [computerChoice, dispatch, playerChoice]);
+	}, [computerChoice, playerChoice, dispatch]);
 
 
 	const handleClick = () => {
