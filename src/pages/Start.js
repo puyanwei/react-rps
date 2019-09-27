@@ -1,23 +1,20 @@
-import React, {  useContext } from "react";
-import { NameContext } from "../contexts/NameContext";
-import { ChoiceContext } from "../contexts/ChoiceContext";
+import React, { useContext } from "react";
+import { RPSContext } from "../contexts/RPSContext";
 
 import "./start.css";
 
 const Start = props => {
-
-    const { playerName } = useContext(NameContext);
-    const { choice, setChoice } = useContext(ChoiceContext);
+    const { state: { playerName, choice: { playerChoice } }, dispatch } = useContext(RPSContext);
 
     const setEmojiToTextState = emoji => {
         if (emoji === "✊") {
-            setChoice({ player: "Rock", computer: null });
+            dispatch({ type: 'SET_PLAYER_CHOICE', payload: "Rock" });
         }
         if (emoji === "✋") {
-            setChoice({ player: "Paper", computer: null });
+            dispatch({ type: 'SET_PLAYER_CHOICE', payload: "Paper" });
         }
         if (emoji === "✌") {
-            setChoice({ player: "Scissors", computer: null });
+            dispatch({ type: 'SET_PLAYER_CHOICE', payload: "Scissors" });
         }
         return;
     };
@@ -28,7 +25,8 @@ const Start = props => {
     };
 
     const handleClick = () => {
-        setChoice({player: choice.player, computer: generateComputerChoice()})
+        dispatch({ type: 'SET_COMPUTER_CHOICE', payload: generateComputerChoice() });
+
         props.history.push({
             pathname: "/result",
         });
@@ -64,9 +62,9 @@ const Start = props => {
                 </button>
             </div>
 
-            {choice.player !== null ? (
+            {playerChoice !== null ? (
                 <>
-                    <h3>You chose {choice.player}.</h3>
+                    <h3>You chose {playerChoice}.</h3>
                     <button onClick={() => handleClick()}>Confirm</button>
                 </>
             ) : null}

@@ -1,45 +1,51 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { NameContext } from '../contexts/NameContext';
-import { ScoreContext } from '../contexts/ScoreContext';
-import { ChoiceContext } from '../contexts/ChoiceContext';
+import { RPSContext } from '../contexts/RPSContext';
 
 import './result.css';
 
 const Result = (props) => {
-	const [ result, setResult ] = useState(null);
+	const [result, setResult] = useState(null);
 
-	const { currentScores, setCurrentScores } = useContext(ScoreContext);
-	const { playerName } = useContext(NameContext);
-	const { choice } = useContext(ChoiceContext);
+	const {
+		state:
+		{
+			playerName,
+			choice: { playerChoice, computerChoice },
+			scores: { playerScore, computerScore }
+		},
+		dispatch
+	} = useContext(RPSContext);
 
 	useEffect(() => {
-		getResult(choice.player, choice.computer);
-	}, []);
 
-	const getResult = (firstChoice, secondChoice) => {
-		const combinations = [
-			'Rock Scissors',
-			'Scissors Paper',
-			'Paper Rock',
-			'Rock Paper',
-			'Paper Scissors',
-			'Scissors Rock'
-		];
+		const getResult = (firstChoice, secondChoice) => {
+			const combinations = [
+				'Rock Scissors',
+				'Scissors Paper',
+				'Paper Rock',
+				'Rock Paper',
+				'Paper Scissors',
+				'Scissors Rock'
+			];
 
-		let hashIndexMatcher;
+			let hashIndexMatcher;
 
-		hashIndexMatcher = combinations.indexOf(`${firstChoice} ${secondChoice}`);
+			hashIndexMatcher = combinations.indexOf(`${firstChoice} ${secondChoice}`);
 
-		if (hashIndexMatcher === -1) {
-			setResult('DRAW');
-		} else if (hashIndexMatcher > -1 && hashIndexMatcher < 3) {
-			setResult('WIN');
-			setCurrentScores({ ...currentScores, player: currentScores.player + 1 });
-		} else {
-			setResult('LOSE');
-			setCurrentScores({ ...currentScores, computer: currentScores.computer + 1 });
-		}
-	};
+			if (hashIndexMatcher === -1) {
+				setResult('DRAW');
+			} else if (hashIndexMatcher > -1 && hashIndexMatcher < 3) {
+				setResult('WIN');
+				dispatch({ type: 'PLAYER_WINS' })
+			} else {
+				setResult('LOSE');
+				dispatch({ type: 'COMPUTER_WINS' })
+			}
+		};
+
+		getResult(playerChoice, computerChoice);
+	}, [computerChoice, playerChoice, dispatch]);
+
 
 	const handleClick = () => {
 		props.history.push({
@@ -54,15 +60,15 @@ const Result = (props) => {
 			</div>
 			<br />
 			<div>
-				<strong>{playerName}</strong> chose <strong>{choice.player}</strong>
+				<strong>{playerName}</strong> chose <strong>{playerChoice}</strong>
 			</div>
 			<br />
 			<div>
-				<strong>Computer</strong> chose <strong>{choice.computer}</strong>
+				<strong>Computer</strong> chose <strong>{computerChoice}</strong>
 			</div>
 			<div>
 				<br />
-				<strong className="large-font">{`${currentScores.player}-${currentScores.computer}`}</strong>
+				<strong className="large-font">{`${playerScore}-${computerScore}`}</strong>
 			</div>
 			<br />
 			<button onClick={handleClick}>Play again?</button>
