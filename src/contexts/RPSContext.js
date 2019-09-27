@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useMemo } from 'react';
 import { RPSReducer } from '../reducers/RPSReducer';
 
 export const RPSContext = createContext();
@@ -12,7 +12,9 @@ const initialState = {
 const RPSContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(RPSReducer, initialState);
 
-	return <RPSContext.Provider value={{ state, dispatch }}>{children}</RPSContext.Provider>;
+	const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+
+	return <RPSContext.Provider value={contextValue}>{children}</RPSContext.Provider>
 };
 
 export default RPSContextProvider;
