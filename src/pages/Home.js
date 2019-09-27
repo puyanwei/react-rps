@@ -8,21 +8,23 @@ const Home = (props) => {
 
     const handleClick = () => {
         if (!isStringEmpty(playerNameEntry.current.value)) {
-            dispatch({ type: 'SET_NAME', payload: playerNameEntry.current.value });
-            props.history.push({
-                pathname: '/start'
-            });
+            sendNameToPayloadAndGoToStart()
         }
     };
 
     const handleKeyPress = (e) => {
         if (!isStringEmpty(playerNameEntry.current.value) && e.which === 13) {
-            dispatch({ type: 'SET_NAME', payload: playerNameEntry.current.value });
-            props.history.push({
-                pathname: '/start'
-            });
+            sendNameToPayloadAndGoToStart()
         }
     };
+
+    const sendNameToPayloadAndGoToStart = () => {
+        dispatch({ type: 'SET_NAME', payload: playerNameEntry.current.value });
+        props.history.push({
+            pathname: '/start'
+        });
+        return
+    }
 
     const isStringEmpty = (string) => string.trim().length === 0;
 

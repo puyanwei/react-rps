@@ -4,8 +4,7 @@ import { RPSContext } from "../contexts/RPSContext";
 import "./start.css";
 
 const Start = props => {
-
-    const { state, dispatch } = useContext(RPSContext);
+    const { state: { playerName, choice: { playerChoice } }, dispatch } = useContext(RPSContext);
 
     const setEmojiToTextState = emoji => {
         if (emoji === "✊") {
@@ -28,15 +27,15 @@ const Start = props => {
     const handleClick = () => {
         dispatch({ type: 'SET_COMPUTER_CHOICE', payload: generateComputerChoice() });
 
-        // props.history.push({
-        //     pathname: "/result",
-        // });
+        props.history.push({
+            pathname: "/result",
+        });
     };
 
     return (
         <div className="app-container">
             <h2>
-                Ok, <span className="player-name">{state.playerName}</span> lets see
+                Ok, <span className="player-name">{playerName}</span> lets see
                 whatcha got!
                 <br />
                 <br />
@@ -63,9 +62,9 @@ const Start = props => {
                 </button>
             </div>
 
-            {state.choice.player !== null ? (
+            {playerChoice !== null ? (
                 <>
-                    <h3>You chose {state.choice.player}.</h3>
+                    <h3>You chose {playerChoice}.</h3>
                     <button onClick={() => handleClick()}>Confirm</button>
                 </>
             ) : null}

@@ -5,7 +5,8 @@ export const RPSContext = createContext();
 
 const initialState = {
 	playerName: '',
-	choice: { player: null, computer: null }
+	choice: { playerChoice: null, computerChoice: null },
+	scores: { playerScore: 0, computerScore: 0 }
 }
 
 const RPSContextProvider = ({ children }) => {
