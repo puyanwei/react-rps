@@ -4,13 +4,13 @@ import { RPSContext } from '../contexts/RPSContext';
 import './result.css';
 
 const Result = (props) => {
-	const [ result, setResult ] = useState(null);
+	const [result, setResult] = useState(null);
 
 	const { playerName, currentScores, setCurrentScores, choice } = useContext(RPSContext);
 
-	useEffect(() => {
-		getResult(choice.player, choice.computer);
-	}, []);
+	// useEffect(() => {
+	// 	getResult(choice.player, choice.computer);
+	// }, []);
 
 	const getResult = (firstChoice, secondChoice) => {
 		const combinations = [

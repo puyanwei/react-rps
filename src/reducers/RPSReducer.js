@@ -1,7 +1,8 @@
 export const RPSReducer = (state, action) => {
 	switch (action.type) {
 		case 'SET_NAME':
-			return { playerName: action };
+			console.log({ state }, { action })
+			return { playerName: action.payload }
 		default:
 			throw new Error();
 	}
